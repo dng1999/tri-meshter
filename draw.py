@@ -121,18 +121,20 @@ def add_torus( edges, cx, cy, cz, r0, r1, step ):
     num_steps = int(1/step+0.1)
     
     lat_start = 0
-    lat_stop = num_steps
+    lat_stop = 2#num_steps
     longt_start = 0
     longt_stop = num_steps
     
     for lat in range(lat_start, lat_stop):
         for longt in range(longt_start, longt_stop):
             index = lat * num_steps + longt
+            print index
 
-
-            if (index - num_steps + 1) % num_steps == 0:
+            #if (index - num_steps + 1) % num_steps == 0:
+            #    pass
+            if index == 9:
                 pass
-            else:
+            elif index < 19:
                 add_polygon(edges, points[index][0],
                             points[index][1],
                             points[index][2],
