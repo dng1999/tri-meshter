@@ -51,6 +51,7 @@ def parse_file( fname, edges, transform, screen, color ):
 
     f = open(fname)
     lines = f.readlines()
+    poly = 0
 
     step = 0.1
     c = 0
@@ -65,18 +66,21 @@ def parse_file( fname, edges, transform, screen, color ):
             
         if line == 'sphere':
             #print 'SPHERE\t' + str(args)
+            poly = 1
             add_sphere(edges,
                        float(args[0]), float(args[1]), float(args[2]),
                        float(args[3]), step)
             
         elif line == 'torus':
             #print 'TORUS\t' + str(args)
+            poly = 1
             add_torus(edges,
                       float(args[0]), float(args[1]), float(args[2]),
                       float(args[3]), float(args[4]), step)
             
         elif line == 'box':
             #print 'BOX\t' + str(args)
+            poly = 1
             add_box(edges,
                     float(args[0]), float(args[1]), float(args[2]),
                     float(args[3]), float(args[4]), float(args[5]))
@@ -136,8 +140,10 @@ def parse_file( fname, edges, transform, screen, color ):
 
         elif line == 'display' or line == 'save':
             clear_screen(screen)
-            draw_polygons(edges, screen, color)
-
+            if poly == 1:
+                draw_polygons(edges, screen, color)
+            else:
+                draw_lines(edges, screen, color)
             if line == 'display':
                 display(screen)
             else:
