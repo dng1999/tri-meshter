@@ -14,21 +14,38 @@ def draw_polygons( points, screen, color ):
     
     point = 0
     while point < len(points) - 2:
-        draw_line(int(points[point][0]),
-                  int(points[point][1]),
-                  int(points[point+1][0]),
-                  int(points[point+1][1]),
-                  screen, color)
-        draw_line(int(points[point][0]),
-                  int(points[point][1]),
-                  int(points[point+2][0]),
-                  int(points[point+2][1]),
-                  screen, color)
-        draw_line(int(points[point+2][0]),
-                  int(points[point+2][1]),
-                  int(points[point+1][0]),
-                  int(points[point+1][1]),
-                  screen, color)
+        p0 = points[point]
+        p1 = points[point+1]
+        p2 = points[point+2]
+
+        A = [p1[0]-p0[0],
+             p1[1]-p0[1],
+             p1[2]-p0[2]]
+
+        B = [p2[0]-p0[0],
+             p2[1]-p0[1],
+             p2[2]-p0[2]]
+
+        N = [(A[1]*B[2]) - (A[2]*B[1]),
+             (A[2]*B[0]) - (A[0]*B[2]),
+             (A[0]*B[1]) - (A[1]*B[0])]
+
+        if N[2] > 0:
+            draw_line(int(p0[0]),
+                      int(p0[1]),
+                      int(p1[0]),
+                      int(p1[1]),
+                      screen, color)
+            draw_line(int(p0[0]),
+                      int(p0[1]),
+                      int(p2[0]),
+                      int(p2[1]),
+                      screen, color)
+            draw_line(int(p2[0]),
+                      int(p2[1]),
+                      int(p1[0]),
+                      int(p1[1]),
+                      screen, color)
         
         point+= 3
     
